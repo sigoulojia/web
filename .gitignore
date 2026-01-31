@@ -36,8 +36,8 @@ dist-ssr
 *.webp
 
 # EXEMPTIONS: Allow project images and thumbnails to be deployed
-!public/assets/*.png
-!public/assets/*.jpg
-!public/assets/*.jpeg
-!public/assets/*.webp
+!public/assets/*
 !src/assets/MUSTAPHA/*
+!src/assets/0126(3).png
+!src/assets/THE TEXT BACKGROUND VIDEO-1.mp4
+!src/assets/react.svg
