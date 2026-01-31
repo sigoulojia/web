@@ -1,0 +1,43 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Large Media
+*.mp4
+*.mov
+*.avi
+*.wmv
+
+# Ignore all images by default to avoid accidental large uploads
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# EXEMPTIONS: Allow project images and thumbnails to be deployed
+!public/assets/*.png
+!public/assets/*.jpg
+!public/assets/*.jpeg
+!public/assets/*.webp
+!src/assets/MUSTAPHA/*
