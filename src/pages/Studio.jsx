@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import studioHero from '../assets/0126(3).png';
 
 // Personal Photos
@@ -9,8 +9,39 @@ import photo3 from '../assets/MUSTAPHA/P1145667.jpg';
 import photo4 from '../assets/MUSTAPHA/Screenshot_2024-11-28-02-37-19-176_com.miui.gallery-edit.jpg';
 
 const Studio = () => {
-    const { scrollYProgress } = useScroll();
-    const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+    const { scrollYProgress: pageScroll } = useScroll();
+    const yHero = useTransform(pageScroll, [0, 1], ['0%', '30%']);
+
+    // -- MURSEE-STYLE SECTION LOGIC --
+    const philosophyRef = useRef(null);
+    const { scrollYProgress: sectionScroll } = useScroll({
+        target: philosophyRef,
+        offset: ["start 90%", "end start"]
+    });
+
+    const smoothSectionScroll = useSpring(sectionScroll, { stiffness: 100, damping: 30 });
+
+    // Immersion effects
+    const bgScale = useTransform(smoothSectionScroll, [0, 0.4], [1, 1.1]);
+    const bgOpacity = useTransform(smoothSectionScroll, [0, 0.2], [1, 0.5]);
+
+    // Card 1 (Left - "The Vision")
+    const cardX1 = useTransform(smoothSectionScroll, [0, 0.85], [0, -450]);
+    const cardR1 = useTransform(smoothSectionScroll, [0, 0.85], [-2, -15]);
+    const cardY1 = useTransform(smoothSectionScroll, [0, 0.85], [0, 60]);
+
+    // Card 3 (Right - "The Impact")
+    const cardX3 = useTransform(smoothSectionScroll, [0, 0.85], [0, 450]);
+    const cardR3 = useTransform(smoothSectionScroll, [0, 0.85], [2, 15]);
+    const cardY3 = useTransform(smoothSectionScroll, [0, 0.85], [0, 60]);
+
+    // Card 2 (Center - "The Craft")
+    const cardS2 = useTransform(smoothSectionScroll, [0, 0.85], [1, 1.15]);
+    const cardR2 = useTransform(smoothSectionScroll, [0, 0.85], [0, -2]);
+
+    // Exit Fade for the whole stack to avoid dead space
+    const stackOpacity = useTransform(smoothSectionScroll, [0.85, 1], [1, 0]);
+    // -- END MURSEE LOGIC --
 
     const personalPhotos = [photo3, photo2, photo1, photo4];
 
@@ -19,11 +50,11 @@ const Studio = () => {
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 <motion.div
-                    style={{ y }}
+                    style={{ y: yHero }}
                     className="absolute inset-0 z-0"
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black z-10" />
-                    <img src={studioHero} alt="Mustapha Filming" className="w-full h-full object-cover" />
+                    <img src={studioHero} alt="Mustapha Adel" className="w-full h-full object-cover" />
                 </motion.div>
 
                 <div className="relative z-20 text-center px-4 mix-blend-difference">
@@ -76,6 +107,97 @@ const Studio = () => {
                             </p>
                         </motion.div>
                     </div>
+                </div>
+            </section>
+
+            {/* MURSEE-INSPIRED PHILOSOPHY SECTION */}
+            <section ref={philosophyRef} className="h-[130vh] relative bg-black">
+                <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+
+                    {/* Immersive Background Blur/Glow */}
+                    <motion.div
+                        style={{ scale: bgScale, opacity: bgOpacity }}
+                        className="absolute inset-0 z-0 pointer-events-none"
+                    >
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white/5 rounded-full blur-[120px]" />
+                    </motion.div>
+
+                    <div className="relative z-10 text-center mb-24 max-w-4xl px-8">
+                        <motion.div
+                            style={{
+                                opacity: useTransform(smoothSectionScroll, [0, 0.15], [0, 1]),
+                                y: useTransform(smoothSectionScroll, [0, 0.15], [30, 0])
+                            }}
+                        >
+                            <h4 className="text-[10px] uppercase tracking-[0.8em] text-white/30 mb-6 font-mono">Behind the lens</h4>
+                            <h2 className="text-5xl md:text-[7vw] font-bold tracking-tight uppercase leading-[0.9] text-white">
+                                Crafting <span className="text-neutral-600">Pure</span><br />Extraordinary.
+                            </h2>
+                        </motion.div>
+                    </div>
+
+                    {/* THE STACK */}
+                    <motion.div
+                        style={{ opacity: stackOpacity }}
+                        className="relative w-full max-w-6xl h-[50vh] flex items-center justify-center"
+                    >
+
+                        {/* LEFT CARD */}
+                        <motion.div
+                            style={{ x: cardX1, rotate: cardR1, y: cardY1 }}
+                            className="absolute w-[240px] md:w-[380px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/5 bg-neutral-900 z-10 transition-colors duration-500 group"
+                        >
+                            <img src={photo1} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Vision" />
+                            <div className="absolute inset-0 p-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-transparent to-transparent">
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Philosophy 01</span>
+                                <h5 className="text-2xl font-bold uppercase tracking-tight">The Vision</h5>
+                            </div>
+                        </motion.div>
+
+                        {/* RIGHT CARD */}
+                        <motion.div
+                            style={{ x: cardX3, rotate: cardR3, y: cardY3 }}
+                            className="absolute w-[240px] md:w-[380px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/5 bg-neutral-900 z-10 transition-colors duration-500 group"
+                        >
+                            <img src={photo2} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Impact" />
+                            <div className="absolute inset-0 p-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-transparent to-transparent">
+                                <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Philosophy 03</span>
+                                <h5 className="text-2xl font-bold uppercase tracking-tight">The Impact</h5>
+                            </div>
+                        </motion.div>
+
+                        {/* CENTER CARD (MASTER) */}
+                        <motion.div
+                            style={{ scale: cardS2, rotate: cardR2 }}
+                            className="absolute w-[260px] md:w-[420px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.7)] border border-white/10 bg-neutral-900 z-20 group"
+                        >
+                            <video
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                className="w-full h-full object-cover transition-all duration-1000"
+                            >
+                                <source src="https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/SHOWREEL%20MUSTAPHA%20ADEL.mp4" type="video/mp4" />
+                            </video>
+                            <div className="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-black via-black/20 to-transparent">
+                                <span className="text-[10px] uppercase tracking-[0.5em] text-white/60 mb-3 font-mono">Core Essence</span>
+                                <h5 className="text-4xl font-bold uppercase tracking-tighter text-white">The Craft</h5>
+                                <div className="h-[1px] w-12 bg-white/40 mt-6 group-hover:w-24 transition-all duration-500" />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                        style={{
+                            opacity: useTransform(smoothSectionScroll, [0.6, 0.8], [1, 0]),
+                            y: useTransform(smoothSectionScroll, [0.6, 0.8], [0, 20])
+                        }}
+                        className="mt-24 flex flex-col items-center gap-4 text-white/20"
+                    >
+                        <div className="w-px h-20 bg-gradient-to-b from-white/20 to-transparent"></div>
+                        <span className="text-[8px] uppercase tracking-[0.6em] font-mono">Scroll for more</span>
+                    </motion.div>
                 </div>
             </section>
 

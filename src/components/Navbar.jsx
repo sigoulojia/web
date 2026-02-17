@@ -123,7 +123,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                        className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center md:hidden"
+                        className="fixed inset-0 bg-black z-[90] flex flex-col justify-start items-center pt-32 md:hidden"
                     >
                         <ul className="flex flex-col items-center space-y-10">
                             {menuItems.map((item, index) => (

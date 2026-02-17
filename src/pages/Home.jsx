@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { projects } from '../data';
 
 const Home = () => {
+    const navigate = useNavigate();
     const [activeIndex, setActiveIndex] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const scrollTimeoutRef = useRef(null);
@@ -70,7 +72,10 @@ const Home = () => {
     };
 
     return (
-        <main className="relative min-h-[100svh] w-full bg-black overflow-hidden cursor-pointer selection:bg-white selection:text-black">
+        <main
+            onClick={() => navigate(`/projects/${currentProject.slug}`)}
+            className="relative min-h-[100svh] w-full bg-black overflow-hidden cursor-pointer selection:bg-white selection:text-black"
+        >
 
             {/* Background Video/Image Layer with GPU Acceleration */}
             <AnimatePresence mode='wait'>

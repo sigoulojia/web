@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import videoBackground from '../assets/THE TEXT BACKGROUND VIDEO-1.mp4';
 
 const Footer = () => {
     const getAlgeriatime = () => {
@@ -51,7 +50,7 @@ const Footer = () => {
                                     className="footer-video-element"
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 >
-                                    <source src={videoBackground} type="video/mp4" />
+                                    <source src="https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/THE%20TEXT%20BACKGROUND%20VIDEO-1.mp4" type="video/mp4" />
                                 </video>
                             </div>
                         </foreignObject>
@@ -87,7 +86,7 @@ const Footer = () => {
                     <div className="footer-section">
                         <h3 className="footer-heading">SOCIALS</h3>
                         <a href="https://www.instagram.com/at_samarita/" target="_blank" rel="noopener noreferrer" className="footer-link">INSTAGRAM</a>
-                        <a href="https://www.linkedin.com/in/mustapha-tiriri-7b8833242?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer" className="footer-link">LINKEDIN</a>
+                        <a href="https://www.linkedin.com/in/mustapha-adel-tiriri-7b8833242/" target="_blank" rel="noopener noreferrer" className="footer-link">LINKEDIN</a>
                     </div>
                 </div>
             </div>

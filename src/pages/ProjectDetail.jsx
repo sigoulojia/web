@@ -94,9 +94,7 @@ const ProjectDetail = () => {
                         <p className="text-xl text-gray-400 leading-relaxed mb-6">
                             {project.description}
                         </p>
-                        <p className="text-xl text-gray-400 leading-relaxed">
-                            Every project is an opportunity to explore the intersection of sound and vision. By focusing on the rhythm of the edit and the texture of the light, we create experiences that are felt as much as they are seen.
-                        </p>
+
                     </div>
 
                     {/* Right Column - Project Info */}
@@ -153,7 +151,7 @@ const ProjectDetail = () => {
                                 muted
                                 loop
                                 playsInline
-                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                                className="w-full h-full object-cover transition-all duration-1000"
                             >
                                 <source src={project.videoUrl} type="video/mp4" />
                             </video>
@@ -187,27 +185,40 @@ const ProjectDetail = () => {
                     )}
 
                     {/* Secondary Image with Legend Effects */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="aspect-[4/5] overflow-hidden rounded-sm relative group"
-                        >
-                            <img
-                                src={project.realImageUrl}
-                                alt={`${project.title} - view 1`}
-                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
-                            />
-                        </motion.div>
-                        <div className="flex flex-col justify-center p-8 md:p-20 bg-neutral-900/50 border border-white/5 rounded-sm">
-                            <span className="text-white/30 uppercase text-[10px] tracking-[0.5em] mb-6">Visual Identity</span>
-                            <h4 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter leading-none mb-8">Capturing the <span className="italic text-neutral-500">Unseen</span></h4>
-                            <p className="text-neutral-400 font-light leading-relaxed">
-                                Behind every great shot is a deeper story waiting to be told. We use the latest in digital cinema technology to ensure that your vision isn't just recorded—it's immortalized.
-                            </p>
+                    {/* Secondary Image with Legend Effects - Hidden for CFI */}
+                    {project.slug !== 'cfi-corporative' && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="aspect-[4/5] overflow-hidden rounded-sm relative group"
+                            >
+                                <img
+                                    src={project.secondaryImageUrl || project.realImageUrl}
+                                    alt={`${project.title} - view 1`}
+                                    className="w-full h-full object-cover transition-all duration-1000 scale-105 group-hover:scale-100"
+                                />
+                            </motion.div>
+                            <div className="flex flex-col justify-center p-8 md:p-20 bg-neutral-900/50 border border-white/5 rounded-sm">
+                                <span className="text-white/30 uppercase text-[10px] tracking-[0.5em] mb-6">
+                                    {project.slug === 'algerie-2030-event-video' ? 'POST-EVENT INTERVIEWS' : 'Visual Identity'}
+                                </span>
+                                <h4 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter leading-none mb-8">
+                                    {project.slug === 'algerie-2030-event-video' ?
+                                        <>Short interviews with <span className="italic text-neutral-500">attendees</span></> :
+                                        <>Capturing the <span className="italic text-neutral-500">Unseen</span></>
+                                    }
+                                </h4>
+                                <p className="text-neutral-400 font-light leading-relaxed">
+                                    {project.slug === 'algerie-2030-event-video' ?
+                                        "Short interviews with attendees sharing their thoughts and impressions of Algerie 2030, adding a personal perspective to the event." :
+                                        "Behind every great shot is a deeper story waiting to be told. We use the latest in digital cinema technology to ensure that your vision isn't just recorded—it's immortalized."
+                                    }
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </section>
 
