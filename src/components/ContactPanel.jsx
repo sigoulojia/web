@@ -5,13 +5,12 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 const ContactPanel = ({ isOpen, onClose }) => {
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+    const [errorMessage, setErrorMessage] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
-        projectType: '',
-        budget: '',
         message: ''
     });
 
@@ -20,14 +19,37 @@ const ContactPanel = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
+
+        if (!TG_BOT_TOKEN || !TG_CHAT_ID) {
+            setSubmitStatus('error');
+            setErrorMessage('Configuration error. Please contact us via email.');
+            console.error('Telegram Bot Token or Chat ID is missing');
+            return;
+        }
+
+        setSubmitStatus('submitting');
+        setErrorMessage('');
+
+        // Escape HTML characters for Telegram
+        const escapeHTML = (text) => {
+            if (!text) return '';
+            return text.toString()
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        };
 
         const text = `
-🆕 *New Project Inquiry*
-👤 *Name:* ${formData.name}
-📧 *Email:* ${formData.email}
-📞 *Phone:* ${formData.phone}
-📝 *Message:* ${formData.message || 'No message provided'}
+<b>🆕 NEW PROJECT INQUIRY</b>
+
+<b>👤 Name:</b> ${escapeHTML(formData.name)}
+<b>📧 Email:</b> ${escapeHTML(formData.email)}
+<b>📞 Phone:</b> ${escapeHTML(formData.phone)}
+
+<b>📝 Message:</b>
+${escapeHTML(formData.message || 'No message provided')}
         `;
 
         try {
@@ -37,22 +59,29 @@ const ContactPanel = ({ isOpen, onClose }) => {
                 body: JSON.stringify({
                     chat_id: TG_CHAT_ID,
                     text: text,
-                    parse_mode: 'Markdown'
+                    parse_mode: 'HTML'
                 })
             });
 
-            if (response.ok) {
-                alert("Thank you! Your message has been sent to Mustapha. We'll get in touch soon.");
-                setFormData({ name: '', email: '', phone: '', projectType: '', budget: '', message: '' });
-                onClose();
+            const result = await response.json();
+
+            if (response.ok && result.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', email: '', phone: '', message: '' });
+                // Close panel after success delay
+                setTimeout(() => {
+                    onClose();
+                    // Reset status after closing animation
+                    setTimeout(() => setSubmitStatus('idle'), 500);
+                }, 3000);
             } else {
-                throw new Error('Telegram submission failed');
+                console.error('Telegram API error:', result);
+                throw new Error(result.description || 'Submission failed');
             }
         } catch (error) {
             console.error('Submission error:', error);
-            alert("Something went wrong. Please try again or contact us directly via email.");
-        } finally {
-            setIsSubmitting(false);
+            setSubmitStatus('error');
+            setErrorMessage("Something went wrong. Please try again or contact us directly via email.");
         }
     };
 
@@ -207,13 +236,37 @@ const ContactPanel = ({ isOpen, onClose }) => {
                                     />
                                 </motion.div>
 
+                                {/* Feedback Messages */}
+                                <AnimatePresence>
+                                    {submitStatus === 'success' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="bg-green-500/10 border border-green-500/20 text-green-400 p-4 text-sm text-center font-medium"
+                                        >
+                                            Thank you! Your message has been sent successfully.
+                                        </motion.div>
+                                    )}
+                                    {submitStatus === 'error' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: 'auto' }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 text-sm text-center font-medium"
+                                        >
+                                            {errorMessage}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
                                 {/* Submit Button */}
                                 <button
                                     type="submit"
-                                    disabled={isSubmitting}
-                                    className={`w-full py-4 bg-white text-black font-bold uppercase tracking-wider hover:bg-gray-200 transition-all duration-300 rounded-md text-sm ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={submitStatus === 'submitting' || submitStatus === 'success'}
+                                    className={`w-full py-4 bg-white text-black font-bold uppercase tracking-wider hover:bg-gray-200 transition-all duration-300 rounded-md text-sm ${(submitStatus === 'submitting' || submitStatus === 'success') ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 >
-                                    {isSubmitting ? 'Sending...' : 'Submit inquiry'}
+                                    {submitStatus === 'submitting' ? 'Sending...' : submitStatus === 'success' ? 'Message Sent!' : 'Submit inquiry'}
                                 </button>
                             </form>
 
