@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { projects } from '../data';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -107,11 +108,11 @@ const Home = () => {
                             <source src={`https://stream.mux.com/${currentProject.playbackId}/high.mp4`} type="video/mp4" />
                         </video>
                     ) : (
-                        <img
+                        <OptimizedImage
                             src={currentProject.realImageUrl}
                             alt={currentProject.title}
-                            className="w-full h-full object-cover"
-                            style={{ willChange: 'transform' }}
+                            className="w-full h-full"
+                            priority={true}
                         />
                     )}
                 </motion.div>

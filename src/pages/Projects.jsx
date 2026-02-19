@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { projects } from '../data';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Projects = () => {
     const navigate = useNavigate();
@@ -35,10 +36,10 @@ const Projects = () => {
                             className={`group relative cursor-pointer ${index % 3 === 0 ? 'md:col-span-2' : ''}`}
                         >
                             <div className="relative overflow-hidden aspect-video w-full">
-                                <motion.img
+                                <OptimizedImage
                                     src={project.realImageUrl}
                                     alt={project.title}
-                                    className="object-cover w-full h-full transition-transform duration-1000 ease-out group-hover:scale-105"
+                                    className="w-full h-full transition-transform duration-1000 ease-out group-hover:scale-105"
                                 />
                                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500" />
 

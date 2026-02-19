@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import OptimizedImage from '../components/OptimizedImage';
 // Remote Photos from R2 Cloud
 const photos = {
     hero: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(3).png",
@@ -59,7 +60,12 @@ const Studio = () => {
                     className="absolute inset-0 z-0"
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black z-10" />
-                    <img src={photos.hero} alt="Mustapha Adel" className="w-full h-full object-cover" />
+                    <OptimizedImage
+                        src={photos.hero}
+                        alt="Mustapha Adel"
+                        className="w-full h-full"
+                        priority={true}
+                    />
                 </motion.div>
 
                 <div className="relative z-20 text-center px-4 mix-blend-difference">
@@ -152,7 +158,11 @@ const Studio = () => {
                             style={{ x: cardX1, rotate: cardR1, y: cardY1 }}
                             className="absolute w-[240px] md:w-[380px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/5 bg-neutral-900 z-10 transition-colors duration-500 group"
                         >
-                            <img src={photos.story1} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Vision" />
+                            <OptimizedImage
+                                src={photos.story1}
+                                className="w-full h-full opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                                alt="Vision"
+                            />
                             <div className="absolute inset-0 p-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-transparent to-transparent">
                                 <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Philosophy 01</span>
                                 <h5 className="text-2xl font-bold uppercase tracking-tight">The Vision</h5>
@@ -164,7 +174,11 @@ const Studio = () => {
                             style={{ x: cardX3, rotate: cardR3, y: cardY3 }}
                             className="absolute w-[240px] md:w-[380px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/5 bg-neutral-900 z-10 transition-colors duration-500 group"
                         >
-                            <img src={"https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/P1145667.jpg"} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Impact" />
+                            <OptimizedImage
+                                src={"https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/P1145667.jpg"}
+                                className="w-full h-full opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                                alt="Impact"
+                            />
                             <div className="absolute inset-0 p-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-transparent to-transparent">
                                 <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Philosophy 03</span>
                                 <h5 className="text-2xl font-bold uppercase tracking-tight">The Impact</h5>

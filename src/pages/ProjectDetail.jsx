@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projects } from '../data';
+import OptimizedImage from '../components/OptimizedImage';
 
 const ProjectDetail = () => {
     const { slug } = useParams();
@@ -45,10 +46,11 @@ const ProjectDetail = () => {
                     className="absolute inset-0 z-0"
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black z-10" />
-                    <img
+                    <OptimizedImage
                         src={project.realImageUrl}
                         alt={project.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full"
+                        priority={true}
                     />
                 </motion.div>
 
@@ -194,10 +196,10 @@ const ProjectDetail = () => {
                                 viewport={{ once: true }}
                                 className="aspect-[4/5] overflow-hidden rounded-sm relative group"
                             >
-                                <img
+                                <OptimizedImage
                                     src={project.secondaryImageUrl || project.realImageUrl}
                                     alt={`${project.title} - view 1`}
-                                    className="w-full h-full object-cover transition-all duration-1000 scale-105 group-hover:scale-100"
+                                    className="w-full h-full transition-all duration-1000 scale-105 group-hover:scale-100"
                                 />
                             </motion.div>
                             <div className="flex flex-col justify-center p-8 md:p-20 bg-neutral-900/50 border border-white/5 rounded-sm">
