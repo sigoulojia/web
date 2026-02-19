@@ -62,7 +62,15 @@ const Footer = () => {
                     {/* Contact */}
                     <div className="footer-section">
                         <h3 className="footer-heading">CONTACT</h3>
-                        <a href="mailto:mustapha0tiriri@gmail.com" className="footer-link">mustapha0tiriri@gmail.com</a>
+                       <a
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=mustapha0tiriri@gmail.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="footer-link"
+>
+  mustapha0tiriri@gmail.com
+</a>
+
                         <a href="tel:+213777865374" className="footer-link">+213 (0) 777 865 374</a>
                     </div>
 
