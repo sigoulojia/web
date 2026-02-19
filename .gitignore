@@ -31,6 +31,7 @@ dist-ssr
 *.mov
 *.avi
 *.wmv
+*.m4v
 
 # Ignore all images by default to avoid accidental large uploads
 *.png
@@ -44,6 +45,10 @@ dist-ssr
 !public/assets/**/*.jpeg
 !public/assets/**/*.webp
 !public/assets/**/*.svg
-!src/assets/MUSTAPHA/*
-!src/assets/0126(3).png
-!src/assets/react.svg
+!src/assets/**/*
+*.mp4
+*.mov
+*.avi
+*.wmv
+*.m4v
+
