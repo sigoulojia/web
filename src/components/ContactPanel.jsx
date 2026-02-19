@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
+const TG_BOT_TOKEN = import.meta.env.VITE_TG_BOT_TOKEN;
+const TG_CHAT_ID = import.meta.env.VITE_TG_CHAT_ID;
+
 const ContactPanel = ({ isOpen, onClose }) => {
     const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
     const [errorMessage, setErrorMessage] = useState('');
@@ -14,16 +17,14 @@ const ContactPanel = ({ isOpen, onClose }) => {
         message: ''
     });
 
-    const TG_BOT_TOKEN = import.meta.env.VITE_TG_BOT_TOKEN;
-    const TG_CHAT_ID = import.meta.env.VITE_TG_CHAT_ID;
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!TG_BOT_TOKEN || !TG_CHAT_ID) {
             setSubmitStatus('error');
-            setErrorMessage('Configuration error. Please contact us via email.');
-            console.error('Telegram Bot Token or Chat ID is missing');
+            const missing = !TG_BOT_TOKEN && !TG_CHAT_ID ? 'Both Token and Chat ID' : !TG_BOT_TOKEN ? 'Bot Token' : 'Chat ID';
+            setErrorMessage(`Configuration error: Missing ${missing}. Please restart your dev server (v) or check .env file.`);
+            console.error('Environment variables missing:', { token: !!TG_BOT_TOKEN, chatId: !!TG_CHAT_ID });
             return;
         }
 
