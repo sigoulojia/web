@@ -4,19 +4,14 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 const photos = {
     hero: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(3).png",
     story1: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/FB_IMG_1743362009241.jpg",
-    story2: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/IMG_2802.jpg", // Note: This one wasn't in the new list, keeping placeholder or needing update if you have a specific replacement
-    // Updated gallery list below
-    gallery: [
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/P1145667.jpg",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/1227%20(1)(2).png",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/1227%20(1)(1).png",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/06.02.2026_01.55.14_REC.png",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0127.png",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126.png",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(2).png",
-        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(1).png"
-    ]
+    story2: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/IMG_2802.jpg",
 };
+
+// Personal Photos (Local Fallbacks for Gallery)
+import photo1 from '../assets/MUSTAPHA/FB_IMG_1743362009241.jpg';
+import photo2 from '../assets/MUSTAPHA/IMG_2802.jpg';
+import photo3 from '../assets/MUSTAPHA/P1145667.jpg';
+import photo4 from '../assets/MUSTAPHA/Screenshot_2024-11-28-02-37-19-176_com.miui.gallery-edit.jpg';
 
 const Studio = () => {
     const { scrollYProgress: pageScroll } = useScroll();
@@ -53,7 +48,7 @@ const Studio = () => {
     const stackOpacity = useTransform(smoothSectionScroll, [0.85, 1], [1, 0]);
     // -- END MURSEE LOGIC --
 
-    const personalPhotos = photos.gallery;
+    const personalPhotos = [photo3, photo2, photo1, photo4];
 
     return (
         <div className="min-h-screen bg-black text-white font-franklin overflow-hidden">
