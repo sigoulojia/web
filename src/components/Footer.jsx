@@ -26,12 +26,12 @@ const Footer = () => {
             <div className="footer-content-full">
                 {/* Large Logo with Video Mask */}
                 <div className="footer-logo-video-container">
-                    <svg viewBox="0 0 1000 200" preserveAspectRatio="xMidYMid meet" className="footer-video-svg">
+                    <svg viewBox="0 0 1600 240" preserveAspectRatio="xMidYMid meet" className="footer-video-svg">
                         <defs>
                             <clipPath id="footerTextClip">
                                 <text
-                                    x="500"
-                                    y="100"
+                                    x="800"
+                                    y="120"
                                     textAnchor="middle"
                                     dominantBaseline="central"
                                     className="footer-video-text"
@@ -40,7 +40,7 @@ const Footer = () => {
                                 </text>
                             </clipPath>
                         </defs>
-                        <foreignObject x="0" y="0" width="1000" height="200" clipPath="url(#footerTextClip)">
+                        <foreignObject x="0" y="0" width="1600" height="240" clipPath="url(#footerTextClip)">
                             <div xmlns="http://www.w3.org/1999/xhtml" style={{ width: '100%', height: '100%' }}>
                                 <video
                                     autoPlay

@@ -140,8 +140,8 @@ video {
 .footer-video-text {
   font-family: 'Oswald', sans-serif;
   font-weight: 900;
-  font-size: 140px;
-  /* Base size for the 1000x200 viewBox */
+  font-size: 200px;
+  /* Base size for the 1600x240 viewBox */
   text-transform: uppercase;
   letter-spacing: -0.05em;
 }
@@ -230,4 +230,35 @@ video {
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
     color: transparent;
   }
+}
+
+/* LEGENDARY Phone Input Custom Styles - Minimalist No-Flag Version */
+.phone-input-container {
+  font-family: 'Libre Franklin', sans-serif !important;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+  /* Back to rounded */
+  color: white !important;
+  height: 56px !important;
+  font-size: 16px !important;
+  padding-left: 15px !important;
+  /* Move text left since no flag */
+  letter-spacing: 0.1em !important;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+
+.react-tel-input .form-control:focus {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  box-shadow: none !important;
+}
+
+/* Hide the flag dropdown completely */
+.react-tel-input .flag-dropdown {
+  display: none !important;
 }
