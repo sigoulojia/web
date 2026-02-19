@@ -1,12 +1,22 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import studioHero from '../assets/0126(3).png';
-
-// Personal Photos
-import photo1 from '../assets/MUSTAPHA/FB_IMG_1743362009241.jpg';
-import photo2 from '../assets/MUSTAPHA/IMG_2802.jpg';
-import photo3 from '../assets/MUSTAPHA/P1145667.jpg';
-import photo4 from '../assets/MUSTAPHA/Screenshot_2024-11-28-02-37-19-176_com.miui.gallery-edit.jpg';
+// Remote Photos from R2 Cloud
+const photos = {
+    hero: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(3).png",
+    story1: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/FB_IMG_1743362009241.jpg",
+    story2: "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/IMG_2802.jpg", // Note: This one wasn't in the new list, keeping placeholder or needing update if you have a specific replacement
+    // Updated gallery list below
+    gallery: [
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/P1145667.jpg",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/1227%20(1)(2).png",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/1227%20(1)(1).png",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/06.02.2026_01.55.14_REC.png",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0127.png",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126.png",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(2).png",
+        "https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/0126(1).png"
+    ]
+};
 
 const Studio = () => {
     const { scrollYProgress: pageScroll } = useScroll();
@@ -43,7 +53,7 @@ const Studio = () => {
     const stackOpacity = useTransform(smoothSectionScroll, [0.85, 1], [1, 0]);
     // -- END MURSEE LOGIC --
 
-    const personalPhotos = [photo3, photo2, photo1, photo4];
+    const personalPhotos = photos.gallery;
 
     return (
         <div className="min-h-screen bg-black text-white font-franklin overflow-hidden">
@@ -54,7 +64,7 @@ const Studio = () => {
                     className="absolute inset-0 z-0"
                 >
                     <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black z-10" />
-                    <img src={studioHero} alt="Mustapha Adel" className="w-full h-full object-cover" />
+                    <img src={photos.hero} alt="Mustapha Adel" className="w-full h-full object-cover" />
                 </motion.div>
 
                 <div className="relative z-20 text-center px-4 mix-blend-difference">
@@ -147,7 +157,7 @@ const Studio = () => {
                             style={{ x: cardX1, rotate: cardR1, y: cardY1 }}
                             className="absolute w-[240px] md:w-[380px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/5 bg-neutral-900 z-10 transition-colors duration-500 group"
                         >
-                            <img src={photo1} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Vision" />
+                            <img src={photos.story1} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Vision" />
                             <div className="absolute inset-0 p-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-transparent to-transparent">
                                 <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Philosophy 01</span>
                                 <h5 className="text-2xl font-bold uppercase tracking-tight">The Vision</h5>
@@ -159,7 +169,7 @@ const Studio = () => {
                             style={{ x: cardX3, rotate: cardR3, y: cardY3 }}
                             className="absolute w-[240px] md:w-[380px] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)] border border-white/5 bg-neutral-900 z-10 transition-colors duration-500 group"
                         >
-                            <img src={photo2} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Impact" />
+                            <img src={"https://pub-37328ef5430f44e0a0ca4fb034e07b05.r2.dev/P1145667.jpg"} className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt="Impact" />
                             <div className="absolute inset-0 p-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-transparent to-transparent">
                                 <span className="text-[10px] uppercase tracking-widest text-white/40 mb-2">Philosophy 03</span>
                                 <h5 className="text-2xl font-bold uppercase tracking-tight">The Impact</h5>
