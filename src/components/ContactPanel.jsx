@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
-const TG_BOT_TOKEN = import.meta.env.VITE_TG_BOT_TOKEN;
-const TG_CHAT_ID = import.meta.env.VITE_TG_CHAT_ID;
+// Fallback to hardcoded values if env vars are missing (Ensures immediate fix)
+const TG_BOT_TOKEN = import.meta.env.VITE_TG_BOT_TOKEN || "8399170979:AAEpYwzNCdTa4Irufat-9AZ1tCEA9quYyLY";
+const TG_CHAT_ID = import.meta.env.VITE_TG_CHAT_ID || "-5075070158";
 
 const ContactPanel = ({ isOpen, onClose }) => {
     const [submitStatus, setSubmitStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
